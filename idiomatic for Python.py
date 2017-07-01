@@ -184,7 +184,7 @@ if values:
 
 # 4.for/else :
 # ordinary
-mylist =[]
+mylist =[1,2,3]
 theflag=1
 def process(n):
     print n
@@ -217,7 +217,7 @@ s3 = 'welcom to %s and following %s' % (s1,s2)
 s4 = 'welcom to {blog} and following {wechat}'.format(blog='foofish.net',wechat='vttalk')
 
 # 6 list slice
-# ordinay
+# ordinary
 items = range(10)
 
 # odd
@@ -250,6 +250,117 @@ copy_items = items[:]
   -6  -5  -4  -3  -2  -1
 --------------------------
 """
+
+# 7.be good at yield
+# ordinary
+def fib(n):
+    a,b = 0,1
+    result = []
+    while b < n:
+        result.append(b)
+        a,b = b,a+b
+    return result
+
+# pythonic
+def fib_new(n):
+    a,b=0,1
+    while a < n:
+        yield b
+        a,b=b,a+b
+
+
+print fib(4)
+
+a = fib_new(4)
+print next(a)
+print next(a)
+print next(a)
+
+L = [x * x for x in range(10)]
+print L
+g = (x * x for x in range(10))
+print g
+print next(g)
+
+
+
+# 8.get dict element
+# ordinary
+d = {'name':'foo'}
+if d.has_key('name'):
+    print (d['name'])
+else:
+    print 'unkonw'
+
+# pythonic
+print d.get('name','unkonw')
+
+
+# 9. Default dictionary defaults
+#通过 key 分组的时候，不得不每次检查 key 是否已经存在于字典中。
+# ordinary
+data3 = [('foo',10),('bar',20),('foo',39),('bar',49)]
+groups = {}
+for (key,value) in data3:
+    if key in groups:
+        groups[key].append(value)
+    else:
+        groups[key] = [value]
+
+# pythonic
+# method 1
+groups = {}
+for (key,value) in data3:
+    groups.setdefault(key,[]).append(value)
+
+# method 2
+from collections import defaultdict
+groups = defaultdict(lambda :[1])
+for (key,value) in data3:
+    groups[key].append(value)
+groups['k']
+print groups
+
+
+# 10.dict deduction
+# before python 2.7
+numbers = [1,2,3]
+my_dict = dict([(number,number*2) for number in numbers])
+print (my_dict) #{1:2,2:4,3:6}
+
+# pythonic
+numbers = [1,2,3]
+my_dict = {number:number*2 for number in numbers}
+print my_dict #{1:2,2:4,3:6}
+
+#and fiter
+my_dict = {number:number*2 for number in numbers if number > 1}
+print my_dict
+
+
+# pythonic for dict object
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
