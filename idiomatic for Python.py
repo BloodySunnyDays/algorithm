@@ -1,4 +1,6 @@
 # -*- coding:utf-8 -*-
+import functools
+
 __author__ ='djj'
 
 #1.var Change pythonic\
@@ -78,7 +80,7 @@ def web_lookup(url,saved={}):
 
 def cache(func):
     saved = {}
-
+    # @functools.wraps(func)
     def wrapper(url):
         if url in saved:
             return saved[url]
@@ -315,7 +317,8 @@ for (key,value) in data3:
 
 # method 2
 from collections import defaultdict
-groups = defaultdict(lambda :[1])
+# groups = defaultdict(lambda :[1])
+groups = defaultdict(list)
 for (key,value) in data3:
     groups[key].append(value)
 groups['k']
@@ -339,15 +342,30 @@ print my_dict
 
 
 # pythonic for dict object
+# 0.useing 'in/not' 'in' check 'key' has exist in the dict
 
+# ordinary
+dictionary = {}
+key = 'key'
+keys =  dictionary.keys()
+for k in keys:
+    if key == k:
+        print True
+        break
 
+# pythonic
+if key in dictionary:
+    print True
+else:
+    print False
 
+# 1.useing setdefault() init dict key-value
+if 'key' not in dictionary:
+    dictionary['key'] = []
+dictionary['key'].append("list_item")
 
-
-
-
-
-
+# pythonic
+dictionary.setdefault('key',[]).append("list_item")
 
 
 
