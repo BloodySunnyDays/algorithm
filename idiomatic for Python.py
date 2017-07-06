@@ -342,7 +342,7 @@ print my_dict
 
 
 # pythonic for dict object
-# 0.useing 'in/not' 'in' check 'key' has exist in the dict
+# 0.Use'in'or'not in' to check whether 'key' exists in the dictionary
 
 # ordinary
 dictionary = {}
@@ -359,13 +359,28 @@ if key in dictionary:
 else:
     print False
 
-# 1.useing setdefault() init dict key-value
+# 1.Initialize dictionary key using 'setDefault()'
 if 'key' not in dictionary:
     dictionary['key'] = []
 dictionary['key'].append("list_item")
 
 # pythonic
 dictionary.setdefault('key',[]).append("list_item")
+
+# 2.Initialize dictionary using 'defaultdict'
+d={}
+if 'a' not in d:
+    d['a'] = 100
+d['a'] +=10
+
+# pythonic
+from collections import defaultdict
+d=defaultdict(lambda :100)
+d['a']+=10
+
+# 3.Iterating large data with 'iteritems ()'
+
+
 
 
 
