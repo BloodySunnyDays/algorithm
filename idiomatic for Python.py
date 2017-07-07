@@ -379,22 +379,54 @@ d=defaultdict(lambda :100)
 d['a']+=10
 
 # 3.Iterating large data with 'iteritems ()'
+# The following code makes up about 1.6G of memory
+
+# d = {i:i*2 for i in xrange(10000000)}
+# for key,value in d.items():
+#     print "{0}={1}".format(key,value)
+
+# Replace items () with the iteritem () method
+#Reduced memory consumption by 50%
+# iteritem() back a iterator(iterators)
+
+# for key,value in d.iteritems():
+#     print "{0}={1}".format(key,value)
 
 
+# 4.Efficient merge dictionary
+# ordinary
+x = {'a':1,'b':2}
+y = {'b':3,'c':4}
+z = dict(x.items()+y.items())
+#The following code  in python 3.X
+z1 = dict(list(x.items())+list(y.items()))
 
+# pythonic
+# in python3.5
+# z2 = {**x,**y}
+# in python2.X
+z2 = x.copy()
+z2.update(y)
 
+# Of course, you can wrap it as a function:
+def merge_dicts(*dict_args):
+    '''
+    可以接收一个或者多个字典参数
+    '''
+    result = {}
+    for dictionary in dict_args:
+        result.update(dictionary)
+    return result
 
+# z3 = merge_dicts(a,b,c,d,e,f,g)
 
-
-
-
-
-
-
-
-
-
-
+# other ways but not best
+# py2.7
+dicts = [{'a':3,'x':4},{},x,y]
+{k:v for d in dicts for k,v in d.items()}
+# <2.6
+dict((k,v) for d in dicts for k,v in d.items())
+# 直接使用python3.5中的{**x, **y}是最快的，使用update次之，用字典推导式相对来说是最慢的。
 
 
 
